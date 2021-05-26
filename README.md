@@ -20,3 +20,14 @@ client_orders
 | -- | --------- | -------- |
 | 1  | 1         | 2        |
 | 2  | 2         | 1        |
+
+Using the tables write a SQL query to get clients with age between 18 and 65 bought only 2 products and only in one category.
+Output format:
+    ID, Name (first_name last_name), Category, Products (Product 1, Product 2, ...)
+     1,                 Ivan Ivanov,   Laptop, Product 1, Product 2
+
+## Problem #1 solution
+
+```sql
+select *;
+```

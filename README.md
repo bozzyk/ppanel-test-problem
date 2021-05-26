@@ -41,3 +41,70 @@ where c.age between 18 and 65
 group by c.id
 having count(co.order_id) = 2 and count(distinct o.category) = 1;
 ```
+
+## Problem #2
+Implement JSON API using Python to get a lsit of posts from open public Instagram profile.
+Multiple clients are allowed to hit the API.
+No need in authorization, but no more than 1 request from 1 IP address simultaneously - parallel requests have to be declined.
+
+User is able to send any data for account name, so be aware of invalid ones.
+
+Request format: `<your_domain>/api/v1?method=<method_name>&profile=<username>`
+Response format: JSON
+
+API has to support 2 methods:
+1. **profile**: Requesting profile info (GET).
+    Response in case of success:
+    ```json
+    {
+        "status": "success",
+        "code": 200,
+        "data": {
+            "profile_id": "173560420",
+            "avatar_url": "<url>",
+            "posts": "3059",
+            "followers": "1234",
+            "following": "1234"
+        }
+    }
+    ```
+    Otherwise:
+    ```json
+    {
+        "status": "error",
+        "code": 403,
+        "message": "Invalid account name"
+    }
+    ```
+
+2. **posts**: Requesting posts of given profile id (first 10 pieces)
+    Successful response:
+    ```json
+    {
+        "status": "success",
+        "code": 200,
+        "data": {
+            "profile_id": "173560420",
+            "avatar_url": "<url>",
+            "posts": [
+                {
+                    "id": "2571529092331506482",
+                    "url": "<url>",
+                    "preview": "<url>",
+                    "likes": "4202387"
+                }
+            ]
+        }
+    }
+    ```
+
+    Otherwise:
+    ```json
+    {
+        "status": "error",
+        "code": 403,
+        "message": "Invalid account name"
+    }
+    ```
+
+    Additional task - to take not first 10 posts but from 11th to 20th

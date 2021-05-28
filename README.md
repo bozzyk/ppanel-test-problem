@@ -108,3 +108,33 @@ API has to support 2 methods:
     ```
 
     Additional task - to take not first 10 posts but from 11th to 20th
+
+## Problem #2 solution
+
+### Investigation part
+
+Primary idea was to find am I able to use some kind of Instagram API. 
+To accomplish that I signed up Facebook Developers portal, but additional permissions are required to get user data.
+TO get those permissions you need to describe in what way you are going to use your application and attach a screencast of application usage session.
+Then you have to wait for approve from Facebook. So this had to take a while and I decided to parse Instagram manually.
+I have found an **Instaloader** tool doing all required operations, like getting user info, extracting posts data e.t.c., but we are not about easy ways.
+
+And here we go with an instant issue: Instagram does not support to find a user by id. I found the third-party resource: **commentpicker.com** - the only web
+application finds Instagram username by user id. It's overloaded with ads and loads slowly because of that, but we do not have an alternatives.
+Let me describe a parsing scenario:
+- Get **instagram.com** web page and authorize there;
+- Go to **commentpicker.com** to get a username (the tool requires Instagram login, but we are already authorized there);
+- Go back to **instagram.com** and put username to a search field, then take the first result;
+    - In case we need to get profile data - just parse it from profile page;
+    - If we are about to get posts - iterate over them and get likes amount __(TODO #1: We are unable to get post id from the website)__;
+
+Advantages of described method:
+- Experience with Selenium Webdriver
+- Simple implementation
+
+Minuses:
+- The parser is a way slower than api
+- Use of third-party tool
+- Non-reliable architecture - everything brokes in case of html changed
+
+Usage: #TODO

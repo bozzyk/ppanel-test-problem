@@ -27,25 +27,6 @@ def wait_and_perform_action(el: WebElement, function: str, argument: str, interv
             time.sleep(interval)
 
 
-def get_username(driver: webdriver.Chrome, user_id, username, password):
-    driver.get('https://commentpicker.com/instagram-username.php')
-    input_form = driver.find_element_by_id('instagram-userid')
-    slow_type(input_form, str(user_id))
-
-    submit_btn : WebElement = driver.find_element_by_id('get-username-button')
-    submit_btn.click()
-
-    time.sleep(3)
-
-    link_div : WebElement = driver.find_element_by_id('comment_users')
-    url = link_div.find_element_by_tag_name('a').get_attribute('href')
-
-    driver.get(url)
-    data = json.loads(driver.find_element_by_tag_name('pre').text)
-    
-    return data['data']['user']['reel']['user']['username']
-
-
 def log_in(driver: webdriver.Chrome, username, password):
     username_form = wait_and_perform_action(driver, 'find_element_by_name', 'username')
     slow_type(username_form, username)
@@ -107,7 +88,7 @@ def get_posts(driver: webdriver.Chrome, recent=False):
     return {'posts': posts}
 
 
-def main(host_username='bozzyk44', host_password='Zsedcvbnm@#$', username='cristiano', mode='posts'):
+def main(host_username='', host_password='', username='cristiano', mode='profile'):
     options = Options()
     # options.headless = True
     # options.add_argument(f'user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36')
@@ -119,11 +100,7 @@ def main(host_username='bozzyk44', host_password='Zsedcvbnm@#$', username='crist
     # username = get_username(driver, user_id, host_username, host_password)
     # driver.get('https://instagram.com')
 
-    search_field : WebElement = wait_and_perform_action(driver, 'find_element_by_xpath', '//input[@placeholder="Search"]')
-    slow_type(search_field, username)
-
-    user_field : WebElement = wait_and_perform_action(driver, 'find_element_by_xpath', '//div[text() = "cristiano"]')
-    user_field.click()
+    driver.get(f'htps://instagram.com/{username}')
 
     avatar_url = wait_and_perform_action(driver, 'find_element_by_xpath', '//img').get_attribute('src')
     

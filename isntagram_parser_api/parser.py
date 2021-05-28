@@ -101,7 +101,7 @@ def get_posts(driver: webdriver.Chrome, recent=False):
     return posts
 
 
-def main(username='bozzyk44', password='Bozzyk311)@)*', user_id='173560420', mode='profile'):
+def main(host_username='', host_password='', username='cristiano', mode='profile'):
     options = Options()
     # options.headless = True
     # options.add_argument(f'user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36')
@@ -109,10 +109,10 @@ def main(username='bozzyk44', password='Bozzyk311)@)*', user_id='173560420', mod
 
     driver.get('https://instagram.com')
     time.sleep(1)
-    log_in(driver, username, password)
+    log_in(driver, host_username, host_password)
     time.sleep(4)
 
-    target_username = get_username(driver, user_id, username, password)
+    # username = get_username(driver, user_id, host_username, host_password)
     driver.get('https://instagram.com')
 
     if 'accounts/onetap/' in driver.current_url:  # case when instagram asks about saving Login info
@@ -125,7 +125,7 @@ def main(username='bozzyk44', password='Bozzyk311)@)*', user_id='173560420', mod
         time.sleep(1)
 
     search_field : WebElement = driver.find_element_by_xpath('//input[@placeholder="Search"]')
-    slow_type(search_field, target_username)
+    slow_type(search_field, username)
     time.sleep(1)
     user_field : WebElement = driver.find_element_by_xpath('//div[text() = "cristiano"]')
     user_field.click()
@@ -142,7 +142,7 @@ def main(username='bozzyk44', password='Bozzyk311)@)*', user_id='173560420', mod
     else:
         raise NotImplementedError('The mode specified is not supported')
 
-    data['profile_id'] = user_id
+    # data['profile_id'] = user_id
     data['avatar_url'] = avatar_url
 
     driver.quit()

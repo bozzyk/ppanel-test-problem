@@ -3,6 +3,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.common.action_chains import ActionChains
+from selenium.common.exceptions import NoSuchElementException
 from random import random
 from functools import partial
 import time
@@ -88,21 +89,22 @@ def get_posts(driver: webdriver.Chrome, recent=False):
     return {'posts': posts}
 
 
-def main(host_username='', host_password='', username='cristiano', mode='profile'):
+def main(host_username, host_password, username='cristiano', mode='profile'):
     options = Options()
-    # options.headless = True
-    # options.add_argument(f'user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36')
+    options.headless = True
+    options.add_argument(f'user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36')
     driver = webdriver.Chrome(options=options)
 
     driver.get('https://instagram.com')
     log_in(driver, host_username, host_password)
+    time.sleep(3)
+    driver.get(f'https://instagram.com/{username}')
 
-    # username = get_username(driver, user_id, host_username, host_password)
-    # driver.get('https://instagram.com')
+    try:
+        avatar_url = wait_and_perform_action(driver, 'find_element_by_xpath', '//img').get_attribute('src')
 
-    driver.get(f'htps://instagram.com/{username}')
-
-    avatar_url = wait_and_perform_action(driver, 'find_element_by_xpath', '//img').get_attribute('src')
+    except NoSuchElementException:
+        return dict()
     
     if mode == 'profile':
         data = get_profile_info(driver)

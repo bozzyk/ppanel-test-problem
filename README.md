@@ -136,11 +136,13 @@ Minuses:
 #### Usage: 
 - Local way:
     - Download Chrome WebDriver from the website: https://chromedriver.chromium.org/downloads and unzip downloaded file to directory under PATH
-    - run `pip install --no-cache-dir -r requirements.txt` from instagram_parser_api
-    - run `flask run` from instagram_parser_api directory - now you have Flask server running
+    - Define `HOST_USERNAME` and `HOST_PASSWORD` environment variables with Instagram account credentials
+    - Run `pip install --no-cache-dir -r requirements.txt` from instagram_parser_api
+    - Run `flask run` from instagram_parser_api directory - now you have Flask server running
 
 - Docker container way
-    - run `docker build -t instagram-api .` from instagram_parser_api
-    - run `docker run instagram-api -p 5000:5000`
+    - Adjust `HOST_USERNAME` and `HOST_PASSWORD` variables in Dockerfile
+    - Run `docker build -t instagram-api .` from instagram_parser_api
+    - Run `docker run instagram-api -p 5000:5000`
 
 - Now you are able to send your request to `localhost:5000`

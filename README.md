@@ -115,7 +115,7 @@ API has to support 2 methods:
 
 Primary idea was to find am I able to use some kind of Instagram API. 
 To accomplish that I signed up Facebook Developers portal, but additional permissions are required to get user data.
-TO get those permissions you need to describe in what way you are going to use your application and attach a screencast of application usage session.
+To get those permissions you need to describe in what way you are going to use your application and attach a screencast of application usage session.
 Then you have to wait for approve from Facebook. So this had to take a while and I decided to parse Instagram manually.
 I have found an **Instaloader** tool doing all required operations, like getting user info, extracting posts data e.t.c., but we are not about easy ways.
 

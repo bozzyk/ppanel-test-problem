@@ -24,7 +24,7 @@ CHROME_OPTIONS.add_argument("no-sandbox")
 CHROME_OPTIONS.add_argument("window-size=1200x800")
 
 
-def slow_type(element: WebElement, text: str):
+def slow_type(element: WebElement, text: str):  # simulates input by human
     for char in text:
         element.send_keys(char)
         time.sleep(random() * 0.3)  # reducing interval returned by random() from [0, 1) to [0, 0.3)
@@ -51,7 +51,7 @@ def log_in(driver: webdriver.Chrome, username, password):
 
 
 def get_profile_info(driver: webdriver.Chrome):
-    ''' driver is supposed to be at profile page'''
+    # driver is supposed to be at profile page
     def parse_custom_int(x):
         return int(''.join(x.split(',')))
 
@@ -92,10 +92,7 @@ def scrap_post(driver, url):
 
 
 def get_posts(driver, recent=False):
-    t = time.time()
-    '''
-        recent == true to take first 10 posts, otherwise - from 11th to 20th;
-    '''
+    # recent == true to take first 10 posts, otherwise - from 11th to 20th;
     posts_a: List[WebElement] = driver.find_elements_by_xpath('//article/div[1]/div/div/div/a')
     posts_a = posts_a[:10] if recent else posts_a[10:20]
     
@@ -113,7 +110,7 @@ def get_posts(driver, recent=False):
     return {'posts': posts}
 
 
-def main(host_username, host_password, username='cristiano', mode='posts'):
+def main(host_username, host_password, username, mode='posts'):
     logging.info('Initializing webdriver')
     driver = webdriver.Chrome(options=CHROME_OPTIONS)
 
@@ -139,7 +136,7 @@ def main(host_username, host_password, username='cristiano', mode='posts'):
         data = get_posts(driver)
 
     else:
-        raise NotImplementedError('The mode specified is not supported')
+        raise NotImplementedError('The mode "{mode}" specified is not supported')
 
     # data['profile_id'] = user_id
     data['avatar_url'] = avatar_url
@@ -152,7 +149,7 @@ def main(host_username, host_password, username='cristiano', mode='posts'):
 
 if __name__ == '__main__':
     if len(sys.argv) < 4:
-        print('Creadentials are missing; Usage: "python3 parser <username> <password> <target_username>"')
+        print('Credentials are missing; Usage: "python3 parser <username> <password> <target_username>"')
         exit()
 
     data = main(sys.argv[1], sys.argv[2], sys.argv[3])

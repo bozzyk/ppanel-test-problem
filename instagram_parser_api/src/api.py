@@ -30,7 +30,7 @@ def get_info():
     logging.info(f'Request from IP {ip} recieved')
     if ip in running_requests:
         logging.info(f'Rejected request from {ip} - simultaneous requests from single IP are not allowed')
-        return _pack_raw({'error': 'Too many requests'})
+        return _pack_raw({'error': 'Too many requests'}, 429)
     running_requests.append(ip)
     username = request.args['profile']
     method = request.args['method']

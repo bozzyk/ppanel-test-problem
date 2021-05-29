@@ -130,7 +130,7 @@ Advantages of described method:
 - Simple implementation
 
 Minuses:
-- The parser is a way slower than api
+- The parser is a way slower than api (it's really slow - about 90s for posts)
 - Non-reliable architecture - everything brokes in case of html changed
 
 #### Usage: 

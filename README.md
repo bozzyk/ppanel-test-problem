@@ -143,6 +143,8 @@ Minuses:
 - Docker container way
     - Adjust `HOST_USERNAME` and `HOST_PASSWORD` variables in Dockerfile
     - Run `docker build -t instagram-api .` from instagram_parser_api
-    - Run `docker run instagram-api -p 5000:5000`
+    - Run `docker -p 5000:5000 --network host run instagram-api`
+
+- Now you are able to hit the API: `curl "localhost:5000/api/v1?profile=cristiano&method=profile"`
 
 - Now you are able to send your request to `localhost:5000`

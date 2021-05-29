@@ -146,5 +146,3 @@ Minuses:
     - Run `docker -p 5000:5000 --network host run instagram-api`
 
 - Now you are able to hit the API: `curl "localhost:5000/api/v1?profile=cristiano&method=profile"`
-
-- Now you are able to send your request to `localhost:5000`
